@@ -1,4 +1,4 @@
-package com.diehard04.englishspeaking.view.home
+package com.diehard04.englishspeaking.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

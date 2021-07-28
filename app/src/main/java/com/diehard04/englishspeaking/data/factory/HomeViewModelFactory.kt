@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.diehard04.englishspeaking.data.api.ApiHelper
 import com.diehard04.englishspeaking.data.repository.HomeRepository
-import com.diehard04.englishspeaking.view.home.HomeViewModel
+import com.diehard04.englishspeaking.viewmodel.HomeViewModel
 
 /**
  * Created by DieHard_04 on 28-07-2021.

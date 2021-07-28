@@ -19,6 +19,7 @@ import com.diehard04.englishspeaking.data.factory.HomeViewModelFactory
 import com.diehard04.englishspeaking.data.model.Status
 import com.diehard04.englishspeaking.data.model.User
 import com.diehard04.englishspeaking.databinding.FragmentHomeBinding
+import com.diehard04.englishspeaking.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
 
@@ -94,7 +95,7 @@ class HomeFragment : Fragment() {
     private fun initView(root: View) {
         rvContents = _binding?.rvContents!!
         rvContents.layoutManager = LinearLayoutManager(context)
-        adapter = HomeAdapter(activity, contentList)
+        adapter = HomeAdapter(activity, arrayListOf())
         rvContents.addItemDecoration(
             DividerItemDecoration(
                 rvContents.context,
