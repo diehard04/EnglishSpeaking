@@ -9,6 +9,7 @@ import com.diehard04.englishspeaking.R
 import com.diehard04.englishspeaking.data.model.Resource
 import com.diehard04.englishspeaking.data.model.ContentModel
 import com.diehard04.englishspeaking.data.repository.HomeRepository
+import com.diehard04.englishspeaking.utils.Constants
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
 
@@ -32,7 +33,8 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
 
     private fun getMainInfo(context: Context): ArrayList<ContentModel> {
         val arrayList = ArrayList<ContentModel>()
-        arrayList.add(ContentModel(context.getString(R.string.t_friends_family), "", ""))
+        arrayList.add(ContentModel(Constants.FRIEND_FAMILY,  Constants.SECTION + "5",
+            Constants.CONVERSATION + 16, ""))
 
         return arrayList
     }

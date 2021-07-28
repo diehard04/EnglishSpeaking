@@ -7,7 +7,7 @@
     <!--title-->
     <string name="t_friends_family">Friends &amp; Family</string>
     <string name="t_eating_topics">Eating Topics</string>
-    <string name="t_day_to_day">Day to Day Life</string>
+    <string name="t_day_to_day">Day to Day Conversation</string>
     <string name="t_talk_child">Talking about children</string>
     <string name="t_shopping_market">Shopping &amp; marketing</string>
     <string name="t_activity">Musics, Movies and Events</string>
@@ -17,8 +17,11 @@
     <string name="t_holiday">Holiday</string>
     <string name="t_trip">Trip &amp; Vacations</string>
     <string name="t_nature">Environment $amp; Nature</string>
-    <string name="t_special_day">special or Important day</string>
+    <string name="t_special_day">Special or Important day</string>
 
 
 <!--    descriptions-->
+
+    <string name="section">Section         </string>
+    <string name="conversion">conversation </string>
 </resources>

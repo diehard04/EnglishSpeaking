@@ -1,7 +1,6 @@
 package com.diehard04.englishspeaking.view.home
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,13 +24,15 @@ class HomeAdapter(private val context: Context, private val contentList: ArrayLi
         fun bind(content: ContentModel) {
             itemView.apply {
                 tvTitle.text = content.title
-                tvDesc.text = content.description
+                tvSection.text = content.section
+                tvConversation.text = content.conversation
                 Glide.with(context).load(content.icon).into(icon)
             }
         }
         var tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
-        var tvDesc: TextView = itemView.findViewById(R.id.tvDescription)
+        var tvSection: TextView = itemView.findViewById(R.id.tvSection)
         var icon: ImageView = itemView.findViewById(R.id.ivIcon)
+        var tvConversation:TextView = itemView.findViewById(R.id.tvConversation)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder =

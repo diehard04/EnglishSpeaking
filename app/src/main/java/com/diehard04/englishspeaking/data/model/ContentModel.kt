@@ -5,6 +5,7 @@ package com.diehard04.englishspeaking.data.model
  */
 data class ContentModel(
     val title: String,
-    val description: String,
+    val section: String,
+    val conversation:String,
     val icon: String
 )

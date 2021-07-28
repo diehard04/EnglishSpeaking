@@ -38,7 +38,14 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvDescription"
+                android:id="@+id/tvSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Desc"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/tvConversation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Desc"
