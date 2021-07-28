@@ -1,6 +1,9 @@
 package com.diehard04.englishspeaking.viewmodel
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,11 +34,83 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun getMainInfo(context: Context): ArrayList<ContentModel> {
         val arrayList = ArrayList<ContentModel>()
-        arrayList.add(ContentModel(Constants.FRIEND_FAMILY,  Constants.SECTION + "5",
-            Constants.CONVERSATION + 16, ""))
-
+        with(arrayList) {
+            add(
+                ContentModel(
+                    Constants.FRIEND_FAMILY, Constants.SECTION + "10",
+                    Constants.CONVERSATION + 16, context.resources.getDrawable(R.drawable.family)
+                )
+            )
+            add(
+                ContentModel(
+                    Constants.EATING_TOPIC, Constants.SECTION + "12",
+                    Constants.CONVERSATION + "17", context.resources.getDrawable(R.drawable.eating_outside)
+                )
+            )
+            add(
+                ContentModel(
+                    Constants.DAY_TO_DAY, Constants.SECTION + "5",
+                    Constants.CONVERSATION + 11, context.resources.getDrawable(R.drawable.day_day)
+                )
+            )
+            add(
+                ContentModel(
+                    Constants.TALK_ABOUT_CHILD, Constants.SECTION + "10",
+                    Constants.CONVERSATION + 16, context.resources.getDrawable(R.drawable.talk_child)
+                )
+            )
+            add(
+                ContentModel(
+                    Constants.SHOP_MARKET, Constants.SECTION + "8",
+                    Constants.CONVERSATION + 6, context.resources.getDrawable(R.drawable.shop_conv)
+                )
+            )
+            add(
+                ContentModel(
+                    Constants.ENTERTAINMENT, Constants.SECTION + "11",
+                    Constants.CONVERSATION + 6, context.resources.getDrawable(R.drawable.entertainment)
+                )
+            )
+            add(
+                ContentModel(
+                    Constants.SCHOOL_COLLEGE, Constants.SECTION + "4",
+                    Constants.CONVERSATION + 6, context.resources.getDrawable(R.drawable.school)
+                )
+            )
+            add(
+                ContentModel(
+                    Constants.WORK_OFFICE, Constants.SECTION + "14",
+                    Constants.CONVERSATION + 21, context.resources.getDrawable(R.drawable.work)
+                )
+            )
+            add(
+                ContentModel(
+                    Constants.SPORTS, Constants.SECTION + "10",
+                    Constants.CONVERSATION + 16, context.resources.getDrawable(R.drawable.sports)
+                )
+            )
+            add(
+                ContentModel(
+                    Constants.TRIP_VACAT, Constants.SECTION + "9",
+                    Constants.CONVERSATION + 11, context.resources.getDrawable(R.drawable.holiday)
+                )
+            )
+            add(
+                ContentModel(
+                    Constants.ENVIRONMENT_NATURE, Constants.SECTION + "5",
+                    Constants.CONVERSATION + 26, context.resources.getDrawable(R.drawable.environment)
+                )
+            )
+            add(
+                ContentModel(
+                    Constants.SPECIAL_IMPORT, Constants.SECTION + "10",
+                    Constants.CONVERSATION + 21, context.resources.getDrawable(R.drawable.special)
+                )
+            )
+        }
         return arrayList
     }
 }

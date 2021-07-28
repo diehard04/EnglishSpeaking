@@ -18,6 +18,7 @@
             android:layout_width="@dimen/dimen_100"
             android:layout_height="@dimen/dimen_100"
             android:padding="@dimen/dimen_5"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24" />
 
         <LinearLayout
@@ -42,14 +43,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Desc"
-                android:textSize="@dimen/text_size_14" />
+                android:textSize="@dimen/text_size_16" />
 
             <TextView
                 android:id="@+id/tvConversation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Desc"
-                android:textSize="@dimen/text_size_14" />
+                android:textSize="@dimen/text_size_16" />
 
         </LinearLayout>
     </LinearLayout>
