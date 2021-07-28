@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "869078999233",
+    "project_id": "englishspeaking-4f917",
+    "storage_bucket": "englishspeaking-4f917.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869078999233:android:161bb9ea033fe77847b440",
+        "android_client_info": {
+          "package_name": "com.diehard04.englishspeaking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869078999233-rbahpnp27mhl18tpcdehv038ja2lqpgr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0lDrOxJkC9f2I9sNDVnj5ECsVr_neyV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869078999233-rbahpnp27mhl18tpcdehv038ja2lqpgr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

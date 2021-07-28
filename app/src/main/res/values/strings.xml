@@ -3,4 +3,22 @@
     <string name="title_home">Home</string>
     <string name="title_grammar">Grammar</string>
     <string name="title_vocabulary">Vocab</string>
+
+    <!--title-->
+    <string name="t_friends_family">Friends &amp; Family</string>
+    <string name="t_eating_topics">Eating Topics</string>
+    <string name="t_day_to_day">Day to Day Life</string>
+    <string name="t_talk_child">Talking about children</string>
+    <string name="t_shopping_market">Shopping &amp; marketing</string>
+    <string name="t_activity">Musics, Movies and Events</string>
+    <string name="t_school_college">School &amp; College</string>
+    <string name="t_work_office">Work or Office Place</string>
+    <string name="t_sports">Sports</string>
+    <string name="t_holiday">Holiday</string>
+    <string name="t_trip">Trip &amp; Vacations</string>
+    <string name="t_nature">Environment $amp; Nature</string>
+    <string name="t_special_day">special or Important day</string>
+
+
+<!--    descriptions-->
 </resources>
