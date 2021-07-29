@@ -3,6 +3,7 @@ package com.diehard04.englishspeaking.view.home
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,16 +18,19 @@ import com.diehard04.englishspeaking.data.api.ApiHelper
 import com.diehard04.englishspeaking.data.api.RetrofitBuilder
 import com.diehard04.englishspeaking.data.factory.HomeViewModelFactory
 import com.diehard04.englishspeaking.data.model.ContentModel
+import com.diehard04.englishspeaking.data.model.SectionsModel
 import com.diehard04.englishspeaking.data.model.Status
 import com.diehard04.englishspeaking.databinding.FragmentHomeBinding
+import com.diehard04.englishspeaking.view.`interface`.HomeAdapterListener
 import com.diehard04.englishspeaking.viewmodel.HomeViewModel
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), HomeAdapterListener {
 
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
     private lateinit var mAdapterHome: HomeAdapter
-    private lateinit var contentList: ArrayList<ContentModel>
+    private var contentList: ArrayList<SectionsModel> = ArrayList<SectionsModel>()
+    private var TAG = HomeFragment::class.java.name
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -39,7 +43,11 @@ class HomeFragment : Fragment() {
         this.activity = context as Activity
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         initView(root)
@@ -90,7 +98,7 @@ class HomeFragment : Fragment() {
 
     private fun initView(root: View) {
         rvContents = _binding?.rvContents!!
-        mAdapterHome = HomeAdapter(activity, arrayListOf())
+        mAdapterHome = HomeAdapter(activity, arrayListOf(), this@HomeFragment)
         rvContents.layoutManager = LinearLayoutManager(activity)
         rvContents.itemAnimator = DefaultItemAnimator()
 
@@ -100,5 +108,14 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun itemClicked(title: String) {
+        Log.d(TAG, " title $title")
+        contentList.clear()
+        homeViewModel.fetchSectionDetails(title).observe(this, Observer {
+            contentList = it as ArrayList<SectionsModel>
+            Log.d(TAG, "sectionList = ${contentList.size}")
+        })
     }
 }

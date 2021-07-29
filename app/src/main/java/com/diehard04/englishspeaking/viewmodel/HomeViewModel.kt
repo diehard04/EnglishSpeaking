@@ -3,17 +3,16 @@ package com.diehard04.englishspeaking.viewmodel
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
 import com.diehard04.englishspeaking.R
 import com.diehard04.englishspeaking.data.model.Resource
 import com.diehard04.englishspeaking.data.model.ContentModel
+import com.diehard04.englishspeaking.data.model.SectionsModel
 import com.diehard04.englishspeaking.data.repository.HomeRepository
 import com.diehard04.englishspeaking.utils.Constants
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.*
 import java.lang.Exception
 
 class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
@@ -22,11 +21,17 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
         value = "This is home Fragment"
     }
     val text: LiveData<String> = _text
+    private var loading: MutableLiveData<Boolean> = MutableLiveData()
 
+    init {
+        loading.postValue(false)
+    }
 
+    // get data from repository suspend method
     fun getContent(context: Context) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
+            // as dashboard data not depended on backed getting information form hardcode data. "getMainInfo()"
             var arrayList = getMainInfo(context)
             emit(Resource.success(data = arrayList))
         } catch (exception: Exception) {
@@ -46,8 +51,10 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
             )
             add(
                 ContentModel(
-                    Constants.EATING_TOPIC, Constants.SECTION + "12",
-                    Constants.CONVERSATION + "17", context.resources.getDrawable(R.drawable.eating_outside)
+                    Constants.EATING_TOPIC,
+                    Constants.SECTION + "12",
+                    Constants.CONVERSATION + "17",
+                    context.resources.getDrawable(R.drawable.eating_outside)
                 )
             )
             add(
@@ -58,8 +65,10 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
             )
             add(
                 ContentModel(
-                    Constants.TALK_ABOUT_CHILD, Constants.SECTION + "10",
-                    Constants.CONVERSATION + 16, context.resources.getDrawable(R.drawable.talk_child)
+                    Constants.TALK_ABOUT_CHILD,
+                    Constants.SECTION + "10",
+                    Constants.CONVERSATION + 16,
+                    context.resources.getDrawable(R.drawable.talk_child)
                 )
             )
             add(
@@ -70,8 +79,10 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
             )
             add(
                 ContentModel(
-                    Constants.ENTERTAINMENT, Constants.SECTION + "11",
-                    Constants.CONVERSATION + 6, context.resources.getDrawable(R.drawable.entertainment)
+                    Constants.ENTERTAINMENT,
+                    Constants.SECTION + "11",
+                    Constants.CONVERSATION + 6,
+                    context.resources.getDrawable(R.drawable.entertainment)
                 )
             )
             add(
@@ -100,8 +111,10 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
             )
             add(
                 ContentModel(
-                    Constants.ENVIRONMENT_NATURE, Constants.SECTION + "5",
-                    Constants.CONVERSATION + 26, context.resources.getDrawable(R.drawable.environment)
+                    Constants.ENVIRONMENT_NATURE,
+                    Constants.SECTION + "5",
+                    Constants.CONVERSATION + 26,
+                    context.resources.getDrawable(R.drawable.environment)
                 )
             )
             add(
@@ -113,4 +126,29 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
         }
         return arrayList
     }
+
+    private val _subSectionList = MutableLiveData<List<SectionsModel>>()
+
+    /**
+     * fetch section information from firebase using coroutine
+     */
+    fun fetchSectionDetails(sectionName: String): LiveData<List<SectionsModel>> {
+        loading.postValue(true)
+        if (sectionName == Constants.FRIEND_FAMILY) {
+            CoroutineScope(Dispatchers.IO).launch {
+                val threadName = Thread.currentThread().name
+                Log.d("threadName ", "IO $threadName")
+//                withContext(Dispatchers.Main) {
+//                    val threadNameMain = Thread.currentThread().name
+//                    Log.d("threadNameMain ", "Main $threadNameMain")
+//                    _subSectionList.value = sectionInfoList
+//                }
+                _subSectionList.postValue(homeRepository.getFriendFamilyContents())
+            }
+        }
+        return _subSectionList
+    }
+
+    fun fetchLoading(): LiveData<Boolean> = loading
+
 }
