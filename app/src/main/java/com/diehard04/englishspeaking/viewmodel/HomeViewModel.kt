@@ -14,7 +14,7 @@ import kotlinx.coroutines.*
 import java.lang.Exception
 
 class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
-
+    private val TAG = HomeViewModel::class.java.name
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
     }
@@ -156,6 +156,7 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
                     val arrayList = homeRepository.getFriendFamilyContents(context)
                     val threadNameMain = Thread.currentThread().name
                     Log.d("threadName ", " $threadNameMain")
+                    Log.d(TAG, " arrayList ${arrayList.size}" )
                     emit(Resource.success(data = arrayList))
                 } catch (exception: Exception) {
                     emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))

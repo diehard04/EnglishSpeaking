@@ -16,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
  */
 open class BaseActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityReceiverListener {
     private var mSnackBar: Snackbar? = null
+    var connectivityReceiver:ConnectivityReceiver = ConnectivityReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,12 +25,12 @@ open class BaseActivity : AppCompatActivity(), ConnectivityReceiver.Connectivity
     override fun onStart() {
         super.onStart()
         val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-        registerReceiver(ConnectivityReceiver(), filter)
+        registerReceiver(connectivityReceiver, filter)
     }
 
     override fun onStop() {
         super.onStop()
-        unregisterReceiver(ConnectivityReceiver())
+        unregisterReceiver(connectivityReceiver)
     }
     override fun onPause() {
         super.onPause()
