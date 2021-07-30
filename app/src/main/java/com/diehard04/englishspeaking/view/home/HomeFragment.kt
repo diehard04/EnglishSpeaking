@@ -18,6 +18,7 @@ import com.diehard04.englishspeaking.data.api.ApiHelper
 import com.diehard04.englishspeaking.data.api.RetrofitBuilder
 import com.diehard04.englishspeaking.data.factory.HomeViewModelFactory
 import com.diehard04.englishspeaking.data.model.ContentModel
+import com.diehard04.englishspeaking.data.model.Resource
 import com.diehard04.englishspeaking.data.model.SectionsModel
 import com.diehard04.englishspeaking.data.model.Status
 import com.diehard04.englishspeaking.databinding.FragmentHomeBinding
@@ -113,9 +114,21 @@ class HomeFragment : Fragment(), HomeAdapterListener {
     override fun itemClicked(title: String) {
         Log.d(TAG, " title $title")
         contentList.clear()
-        homeViewModel.fetchSectionDetails(title).observe(this, Observer {
-            contentList = it as ArrayList<SectionsModel>
-            Log.d(TAG, "sectionList = ${contentList.size}")
+        homeViewModel.fetchSectionDataFromEmit(title, context).observe(this, Observer {
+            when(it.status) {
+                Status.SUCCESS -> {
+                    _binding?.progressBar?.visibility = View.GONE
+
+                }
+                Status.ERROR -> {
+                    _binding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(activity, it.message, Toast.LENGTH_LONG).show()
+                }
+
+                Status.LOADING -> {
+                    _binding!!.progressBar.visibility = View.VISIBLE
+                }
+            }
         })
     }
 }

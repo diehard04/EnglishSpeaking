@@ -1,22 +1,25 @@
 package com.diehard04.englishspeaking.view
 
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.diehard04.englishspeaking.R
 import com.diehard04.englishspeaking.databinding.ActivityMainBinding
+import com.diehard04.englishspeaking.utils.ConnectivityReceiver
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity(){
 
     private lateinit var binding: ActivityMainBinding
-
+    private val TAG = MainActivity::class.java.name
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        Log.d(TAG,  " onCreate")
+        registerReceiver(ConnectivityReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -30,5 +33,25 @@ class MainActivity : AppCompatActivity() {
         )
         //setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG,  " onPause")
+    }
+    override fun onResume() {
+        super.onResume()
+
+        Log.d(TAG,  " onResume")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(TAG, " onRestart")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG,  " onDestroy")
+
     }
 }

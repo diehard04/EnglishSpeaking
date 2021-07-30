@@ -2,9 +2,7 @@ package com.diehard04.englishspeaking.viewmodel
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.diehard04.englishspeaking.R
 import com.diehard04.englishspeaking.data.model.Resource
@@ -130,7 +128,7 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
     private val _subSectionList = MutableLiveData<List<SectionsModel>>()
 
     /**
-     * fetch section information from firebase using coroutine
+     * fetch section information from firebase using CoroutineScope
      */
     fun fetchSectionDetails(sectionName: String): LiveData<List<SectionsModel>> {
         loading.postValue(true)
@@ -143,11 +141,27 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
 //                    Log.d("threadNameMain ", "Main $threadNameMain")
 //                    _subSectionList.value = sectionInfoList
 //                }
-                _subSectionList.postValue(homeRepository.getFriendFamilyContents())
+                //_subSectionList.postValue(homeRepository.getFriendFamilyContents())
             }
         }
         return _subSectionList
     }
+
+    fun fetchSectionDataFromEmit(sectionName: String, context: Context?) =
+        liveData(Dispatchers.IO) {
+            if (sectionName == Constants.FRIEND_FAMILY) {
+                emit(Resource.loading(data = null))
+                try {
+                    // as dashboard data not depended on backed getting information form hardcode data. "getMainInfo()"
+                    val arrayList = homeRepository.getFriendFamilyContents(context)
+                    val threadNameMain = Thread.currentThread().name
+                    Log.d("threadName ", " $threadNameMain")
+                    emit(Resource.success(data = arrayList))
+                } catch (exception: Exception) {
+                    emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+                }
+            }
+        }
 
     fun fetchLoading(): LiveData<Boolean> = loading
 

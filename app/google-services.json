@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "869078999233",
-    "project_id": "englishspeaking-4f917",
-    "storage_bucket": "englishspeaking-4f917.appspot.com"
+    "project_number": "305163568058",
+    "project_id": "englishspeaking-5f156",
+    "storage_bucket": "englishspeaking-5f156.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:869078999233:android:161bb9ea033fe77847b440",
+        "mobilesdk_app_id": "1:305163568058:android:a8a14b044637993ee59383",
         "android_client_info": {
           "package_name": "com.diehard04.englishspeaking"
         }
       },
       "oauth_client": [
         {
-          "client_id": "869078999233-rbahpnp27mhl18tpcdehv038ja2lqpgr.apps.googleusercontent.com",
+          "client_id": "305163568058-lb6n8hg7hd6baa6mmgt6gkkd0kgt8tmq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA0lDrOxJkC9f2I9sNDVnj5ECsVr_neyV4"
+          "current_key": "AIzaSyBRlanfTMTjxzJ85W6B0BgtKSN29tU7h9o"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "869078999233-rbahpnp27mhl18tpcdehv038ja2lqpgr.apps.googleusercontent.com",
+              "client_id": "305163568058-lb6n8hg7hd6baa6mmgt6gkkd0kgt8tmq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
