@@ -2,6 +2,7 @@ package com.diehard04.englishspeaking.view.home
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,12 +18,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.diehard04.englishspeaking.data.api.ApiHelper
 import com.diehard04.englishspeaking.data.api.RetrofitBuilder
 import com.diehard04.englishspeaking.data.factory.HomeViewModelFactory
-import com.diehard04.englishspeaking.data.model.ContentModel
-import com.diehard04.englishspeaking.data.model.Resource
-import com.diehard04.englishspeaking.data.model.SectionsModel
+import com.diehard04.englishspeaking.data.model.HomeModel
+import com.diehard04.englishspeaking.data.model.CategoryModel
 import com.diehard04.englishspeaking.data.model.Status
 import com.diehard04.englishspeaking.databinding.FragmentHomeBinding
 import com.diehard04.englishspeaking.view.`interface`.HomeAdapterListener
+import com.diehard04.englishspeaking.view.categorylist.CategoryListActivity
 import com.diehard04.englishspeaking.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment(), HomeAdapterListener {
@@ -30,7 +31,7 @@ class HomeFragment : Fragment(), HomeAdapterListener {
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
     private lateinit var mAdapterHome: HomeAdapter
-    private var contentList: ArrayList<SectionsModel> = ArrayList<SectionsModel>()
+    private var categoryList: ArrayList<CategoryModel> = ArrayList<CategoryModel>()
     private var TAG = HomeFragment::class.java.name
 
     // This property is only valid between onCreateView and
@@ -84,8 +85,8 @@ class HomeFragment : Fragment(), HomeAdapterListener {
         }
     }
 
-    private fun updateList(data: List<ContentModel>?) {
-        mAdapterHome.addContent(data as ArrayList<ContentModel>)
+    private fun updateList(data: List<HomeModel>?) {
+        mAdapterHome.addContent(data as ArrayList<HomeModel>)
         mAdapterHome.notifyDataSetChanged()
     }
 
@@ -113,12 +114,19 @@ class HomeFragment : Fragment(), HomeAdapterListener {
 
     override fun itemClicked(title: String) {
         Log.d(TAG, " title $title")
-        contentList.clear()
+        categoryList.clear()
         homeViewModel.fetchSectionDataFromEmit(title, context).observe(this, Observer {
+            Log.d("it ", it.data.toString())
             when(it.status) {
                 Status.SUCCESS -> {
+                    categoryList = it.data as ArrayList<CategoryModel>
+                    Log.d(TAG , " categoryList ${categoryList.size}" )
+                    val intent = Intent(getActivity(), CategoryListActivity::class.java)
+                    val bundle = Bundle();
+                    bundle.putSerializable("data", categoryList)
+                    intent.putExtras(bundle)
+                    startActivity(intent)
                     _binding?.progressBar?.visibility = View.GONE
-
                 }
                 Status.ERROR -> {
                     _binding?.progressBar?.visibility = View.GONE

@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.diehard04.englishspeaking.R
-import com.diehard04.englishspeaking.data.model.ContentModel
+import com.diehard04.englishspeaking.data.model.HomeModel
 import com.diehard04.englishspeaking.view.`interface`.HomeAdapterListener
 
 /**
@@ -17,7 +17,7 @@ import com.diehard04.englishspeaking.view.`interface`.HomeAdapterListener
  */
 class HomeAdapter(
     private val context: Context,
-    private val contentList: ArrayList<ContentModel>,
+    private val homeList: ArrayList<HomeModel>,
     private var listener: HomeAdapterListener
 ) :
     RecyclerView.Adapter<HomeAdapter.MyViewHolder>() {
@@ -26,12 +26,12 @@ class HomeAdapter(
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(content: ContentModel) {
+        fun bind(home: HomeModel) {
             itemView.apply {
-                tvTitle.text = content.title
-                tvSection.text = content.section
-                tvConversation.text = content.conversation
-                Glide.with(context).load(content.icon).into(icon)
+                tvTitle.text = home.title
+                tvSection.text = home.section
+                tvConversation.text = home.conversation
+                Glide.with(context).load(home.icon).into(icon)
             }
         }
 
@@ -45,18 +45,18 @@ class HomeAdapter(
         MyViewHolder(LayoutInflater.from(context).inflate(R.layout.adapter_home, parent, false))
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(contentList[position])
+        holder.bind(homeList[position])
         holder.itemView.setOnClickListener{
-            listener.itemClicked(contentList[position].title)
+            listener.itemClicked(homeList[position].title)
         }
     }
 
-    override fun getItemCount(): Int = contentList.size
+    override fun getItemCount(): Int = homeList.size
 
-    fun addContent(contentList: ArrayList<ContentModel>) {
-        this.contentList.apply {
+    fun addContent(homeList: ArrayList<HomeModel>) {
+        this.homeList.apply {
             clear()
-            addAll(contentList)
+            addAll(homeList)
         }
     }
 }

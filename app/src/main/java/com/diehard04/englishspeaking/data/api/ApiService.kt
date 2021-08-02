@@ -1,6 +1,6 @@
 package com.diehard04.englishspeaking.data.api
 
-import com.diehard04.englishspeaking.data.model.ContentModel
+import com.diehard04.englishspeaking.data.model.HomeModel
 import retrofit2.http.GET
 
 /**
@@ -9,5 +9,5 @@ import retrofit2.http.GET
 interface ApiService {
 
     @GET("users")
-    suspend fun getUsers(): List<ContentModel>
+    suspend fun getUsers(): List<HomeModel>
 }

@@ -6,14 +6,14 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.diehard04.englishspeaking.R
 import com.diehard04.englishspeaking.data.model.Resource
-import com.diehard04.englishspeaking.data.model.ContentModel
-import com.diehard04.englishspeaking.data.model.SectionsModel
+import com.diehard04.englishspeaking.data.model.HomeModel
+import com.diehard04.englishspeaking.data.model.CategoryModel
 import com.diehard04.englishspeaking.data.repository.HomeRepository
 import com.diehard04.englishspeaking.utils.Constants
 import kotlinx.coroutines.*
 import java.lang.Exception
 
-class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
+class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(){
     private val TAG = HomeViewModel::class.java.name
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
@@ -38,17 +38,17 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun getMainInfo(context: Context): ArrayList<ContentModel> {
-        val arrayList = ArrayList<ContentModel>()
+    private fun getMainInfo(context: Context): ArrayList<HomeModel> {
+        val arrayList = ArrayList<HomeModel>()
         with(arrayList) {
             add(
-                ContentModel(
+                HomeModel(
                     Constants.FRIEND_FAMILY, Constants.SECTION + "10",
                     Constants.CONVERSATION + 16, context.resources.getDrawable(R.drawable.family)
                 )
             )
             add(
-                ContentModel(
+                HomeModel(
                     Constants.EATING_TOPIC,
                     Constants.SECTION + "12",
                     Constants.CONVERSATION + "17",
@@ -56,13 +56,13 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
                 )
             )
             add(
-                ContentModel(
+                HomeModel(
                     Constants.DAY_TO_DAY, Constants.SECTION + "5",
                     Constants.CONVERSATION + 11, context.resources.getDrawable(R.drawable.day_day)
                 )
             )
             add(
-                ContentModel(
+                HomeModel(
                     Constants.TALK_ABOUT_CHILD,
                     Constants.SECTION + "10",
                     Constants.CONVERSATION + 16,
@@ -70,13 +70,13 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
                 )
             )
             add(
-                ContentModel(
+                HomeModel(
                     Constants.SHOP_MARKET, Constants.SECTION + "8",
                     Constants.CONVERSATION + 6, context.resources.getDrawable(R.drawable.shop_conv)
                 )
             )
             add(
-                ContentModel(
+                HomeModel(
                     Constants.ENTERTAINMENT,
                     Constants.SECTION + "11",
                     Constants.CONVERSATION + 6,
@@ -84,31 +84,31 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
                 )
             )
             add(
-                ContentModel(
+                HomeModel(
                     Constants.SCHOOL_COLLEGE, Constants.SECTION + "4",
                     Constants.CONVERSATION + 6, context.resources.getDrawable(R.drawable.school)
                 )
             )
             add(
-                ContentModel(
+                HomeModel(
                     Constants.WORK_OFFICE, Constants.SECTION + "14",
                     Constants.CONVERSATION + 21, context.resources.getDrawable(R.drawable.work)
                 )
             )
             add(
-                ContentModel(
+                HomeModel(
                     Constants.SPORTS, Constants.SECTION + "10",
                     Constants.CONVERSATION + 16, context.resources.getDrawable(R.drawable.sports)
                 )
             )
             add(
-                ContentModel(
+                HomeModel(
                     Constants.TRIP_VACAT, Constants.SECTION + "9",
                     Constants.CONVERSATION + 11, context.resources.getDrawable(R.drawable.holiday)
                 )
             )
             add(
-                ContentModel(
+                HomeModel(
                     Constants.ENVIRONMENT_NATURE,
                     Constants.SECTION + "5",
                     Constants.CONVERSATION + 26,
@@ -116,7 +116,7 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
                 )
             )
             add(
-                ContentModel(
+                HomeModel(
                     Constants.SPECIAL_IMPORT, Constants.SECTION + "10",
                     Constants.CONVERSATION + 21, context.resources.getDrawable(R.drawable.special)
                 )
@@ -125,12 +125,12 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
         return arrayList
     }
 
-    private val _subSectionList = MutableLiveData<List<SectionsModel>>()
+    private val _subSectionList = MutableLiveData<List<CategoryModel>>()
 
     /**
      * fetch section information from firebase using CoroutineScope
      */
-    fun fetchSectionDetails(sectionName: String): LiveData<List<SectionsModel>> {
+    fun fetchSectionDetails(sectionName: String): LiveData<List<CategoryModel>> {
         loading.postValue(true)
         if (sectionName == Constants.FRIEND_FAMILY) {
             CoroutineScope(Dispatchers.IO).launch {
@@ -147,23 +147,22 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
         return _subSectionList
     }
 
-    fun fetchSectionDataFromEmit(sectionName: String, context: Context?) =
-        liveData(Dispatchers.IO) {
-            if (sectionName == Constants.FRIEND_FAMILY) {
-                emit(Resource.loading(data = null))
-                try {
-                    // as dashboard data not depended on backed getting information form hardcode data. "getMainInfo()"
-                    val arrayList = homeRepository.getFriendFamilyContents(context)
-                    val threadNameMain = Thread.currentThread().name
-                    Log.d("threadName ", " $threadNameMain")
-                    Log.d(TAG, " arrayList ${arrayList.size}" )
-                    emit(Resource.success(data = arrayList))
-                } catch (exception: Exception) {
-                    emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-                }
-            }
-        }
-
-    fun fetchLoading(): LiveData<Boolean> = loading
-
+    fun fetchSectionDataFromEmit(sectionName: String, context: Context?):LiveData<Resource<ArrayList<CategoryModel>>> {
+        var arrayList = homeRepository.getFriendFamilyContents(context)
+        return arrayList
+    }
+//        liveData(Dispatchers.IO) {
+//            if (sectionName == Constants.FRIEND_FAMILY) {
+//                emit(Resource.loading(data = null))
+//                try {
+//                    // as dashboard data not depended on backed getting information form hardcode data. "getMainInfo()"
+//
+//                    val threadNameMain = Thread.currentThread().name
+//                    Log.d("threadName ", " $threadNameMain")
+//                    emit(Resource.success(data = arrayList))
+//                } catch (exception: Exception) {
+//                    emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+//                }
+//            }
+//        }
 }

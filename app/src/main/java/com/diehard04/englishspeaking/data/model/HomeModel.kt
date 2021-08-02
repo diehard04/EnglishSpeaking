@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable
 /**
  * Created by DieHard_04 on 28-07-2021.
  */
-data class ContentModel(
+data class HomeModel(
     val title: String,
     val section: String,
     val conversation:String,
