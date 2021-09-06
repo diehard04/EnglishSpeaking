@@ -13,13 +13,14 @@ import com.diehard04.englishspeaking.utils.Constants
 import kotlinx.coroutines.*
 import java.lang.Exception
 
-class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(){
+class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
     private val TAG = HomeViewModel::class.java.name
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
     }
     val text: LiveData<String> = _text
     private var loading: MutableLiveData<Boolean> = MutableLiveData()
+    private var arrayList: LiveData<Resource<ArrayList<CategoryModel>>> ?= null
 
     init {
         loading.postValue(false)
@@ -147,8 +148,10 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(){
         return _subSectionList
     }
 
-    fun fetchSectionDataFromEmit(sectionName: String, context: Context?):LiveData<Resource<ArrayList<CategoryModel>>> {
-        var arrayList = homeRepository.getFriendFamilyContents(context)
+    fun fetchSectionDataFromEmit(sectionName: String, context: Context?): LiveData<Resource<ArrayList<CategoryModel>>>? {
+        if (sectionName == Constants.FRIEND_FAMILY) {
+            arrayList = homeRepository.getFriendFamilyContents(context)
+        }
         return arrayList
     }
 //        liveData(Dispatchers.IO) {

@@ -115,7 +115,7 @@ class HomeFragment : Fragment(), HomeAdapterListener {
     override fun itemClicked(title: String) {
         Log.d(TAG, " title $title")
         categoryList.clear()
-        homeViewModel.fetchSectionDataFromEmit(title, context).observe(this, Observer {
+        homeViewModel.fetchSectionDataFromEmit(title, context)?.observe(this, Observer {
             Log.d("it ", it.data.toString())
             when(it.status) {
                 Status.SUCCESS -> {

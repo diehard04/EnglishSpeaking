@@ -23,6 +23,10 @@ class CategoryListActivity:BaseActivity() {
         setContentView(R.layout.activity_category_list)
 
         initView()
+        initIntent()
+    }
+
+    private fun initIntent() {
         categoryList = intent.extras?.getSerializable("data") as ArrayList<CategoryModel>
         Log.d("categoryList ", "${categoryList.size}")
     }

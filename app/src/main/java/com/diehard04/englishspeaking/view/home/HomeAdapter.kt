@@ -15,11 +15,7 @@ import com.diehard04.englishspeaking.view.`interface`.HomeAdapterListener
 /**
  * Created by DieHard_04 on 28-07-2021.
  */
-class HomeAdapter(
-    private val context: Context,
-    private val homeList: ArrayList<HomeModel>,
-    private var listener: HomeAdapterListener
-) :
+class HomeAdapter(private val context: Context, private val homeList: ArrayList<HomeModel>, private var listener: HomeAdapterListener) :
     RecyclerView.Adapter<HomeAdapter.MyViewHolder>() {
 
     private val TAG = HomeAdapter::class.java.name
